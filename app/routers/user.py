@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from .. import models, schemas, database, utils
+from ..oauth2 import get_current_user
+
 
 router = APIRouter()
 
@@ -31,3 +33,12 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db.refresh(new_user)
 
     return {"message": "User registered successfully"}
+
+
+
+@router.get("/profile")
+def get_profile(current_user: models.User = Depends(get_current_user)):
+    return {
+        "id": current_user.id,
+        "username": current_user.username
+    }
