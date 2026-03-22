@@ -66,6 +66,7 @@ uvicorn app.main:app --reload
 Your API should now be running at http://127.0.0.1:8000
 Swagger docs: http://127.0.0.1:8000/docs
 
+
 ## API Endpoints
 ### Users
 - POST /register - Register a new user
