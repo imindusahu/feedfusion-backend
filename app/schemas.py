@@ -12,3 +12,11 @@ class UserLogin(BaseModel):
 class ArticleCreate(BaseModel):
     title: str
     content: str
+
+
+class UserResponse(BaseModel):
+    id: int
+    username: str
+
+    class Config:
+        from_attributes = True  
