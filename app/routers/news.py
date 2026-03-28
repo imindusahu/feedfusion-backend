@@ -7,5 +7,5 @@ router = APIRouter(
 )
 
 @router.get("/")
-def get_news(category: str = "technology", q: str = ""):
-    return fetch_news(category, q)
+def get_news(category: str = "", search: str = ""):
+    return fetch_news(category, search)
