@@ -47,15 +47,15 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
     )
 
     # Save user in database
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)   # Refresh to get updated data (like id)
+    db.add(new_user)   # Add to DB session
+    db.commit()   # Commit to save in DB
+    db.refresh(new_user)   # Refresh to get updated data 
 
     # Return success message
     return new_user
 
 
-# ---------------- PROFILE API (Protected 🔒) ----------------
+# ---------------- PROFILE API (Protected ) ----------------
 @router.get("/profile", response_model=schemas.UserResponse)
 def get_profile(current_user: models.User = Depends(get_current_user)):
 
