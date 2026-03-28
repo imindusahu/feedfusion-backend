@@ -4,13 +4,14 @@ from ..config import NEWS_API_KEY
 BASE_URL = "https://newsapi.org/v2/top-headlines"
 
 
-def fetch_news(category="technology", query=""):
+def fetch_news(category : str ="", search : str =""):
+     
     
-    if query:  # 🔍 SEARCH MODE
+    if search and search.strip():  # 🔍 SEARCH MODE
         BASE_URL = "https://newsapi.org/v2/everything"
         params = {
             "apiKey": NEWS_API_KEY,
-            "q": query,
+            "q": search,
             "pageSize": 12
         }
     else:  # 📂 CATEGORY MODE
