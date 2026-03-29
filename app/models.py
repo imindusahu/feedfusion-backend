@@ -6,16 +6,17 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    password = Column(String)
+    username = Column(String(50), unique=True, index=True)
+    password = Column(String(100))
+
 
 
 class Article(Base):
     __tablename__ = "articles"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
-    content = Column(String)
+    title = Column(String(200))
+    content = Column(String(1000))
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User")
