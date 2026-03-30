@@ -9,25 +9,18 @@ from .routers import user, auth, article, news
 
 # Import CORS middleware (to connect frontend)
 from fastapi.middleware.cors import CORSMiddleware
-
+from .config import ALLOWED_HOSTS
 
 # Create FastAPI app instance
 app = FastAPI()
 
 
-# List of allowed frontend URLs (React app)
-origins = [
-    "http://localhost:3000",      # React default
-    "http://127.0.0.1:3000",     # Alternative localhost
-]
-
-
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,        # Allow only these URLs
+    allow_origins=ALLOWED_HOSTS,        # Allow only these URLs
     allow_credentials=True,       # Allow cookies/token sharing
-    allow_methods=["*"],          # Allow all HTTP methods (GET, POST, etc.)
+    allow_methods=["*"],          # Alow all HTTP methods (GET, POST, etc.)
     allow_headers=["*"],          # Allow all headers
 )
 
