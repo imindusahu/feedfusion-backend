@@ -57,7 +57,7 @@ def get_articles(
 
 
 
-@router.get("/articles/{article_id}", response_model=schemas.ArticleResponse)
+@router.get("/{article_id}", response_model=schemas.ArticleResponse)
 def get_article(article_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)   ):
     
     try:
@@ -69,12 +69,12 @@ def get_article(article_id: int, db: Session = Depends(get_db), current_user: mo
         raise HTTPException(status_code=500, detail=str(e))
 
     if not article:
-        return {"error": "Article not found"}
+        raise HTTPException(status_code=404, detail="Article not found")
 
     return article
 
 
-@router.put("/articles/{article_id}", response_model=schemas.ArticleResponse)
+@router.put("/{article_id}", response_model=schemas.ArticleResponse)
 def update_article(
     article_id: int,
     updated_data: schemas.ArticleCreate,
@@ -90,7 +90,7 @@ def update_article(
         raise HTTPException(status_code=500, detail=str(e))
     
     if not article:
-        return {"error": "Article not found"}
+        raise HTTPException(status_code=404, detail="Article not found")
     
 
     for key, value in updated_data.dict().items():
@@ -101,7 +101,7 @@ def update_article(
 
     return article
 
-@router.delete("/articles/{article_id}")
+@router.delete("/{article_id}")
 def delete_article(article_id: int, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user)):
     try:
         article = db.query(models.Article).filter(
@@ -113,7 +113,7 @@ def delete_article(article_id: int, db: Session = Depends(get_db), current_user:
         raise HTTPException(status_code=500, detail=str(e))
 
     if not article:
-        return {"error": "Article not found"}
+        raise HTTPException(status_code=404, detail="Article not found")
 
     db.delete(article)
     db.commit()
